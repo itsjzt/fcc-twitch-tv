@@ -6,11 +6,34 @@ fetch('https://gist.githubusercontent.com/QuincyLarson/2ff6892f948d0b7118a99264f
  .then( resp => resp.json())
  .then(json => parse(json))
 
-
 function parse(data = []) {
-  const htmlnode = document.querySelector('#main')
   data.forEach( channel => {
-    const { display_name = null, logo = null, status = null, url = null } = channel.stream
-    htmlnode.innerHTML += `<div class="api-info"> ${display_name}, ${status}, ${url}  </div>`
+    // If it has nothing
+    if (channel.error) render(null, null, null)
+
+    // if it has just name, link
+    else if (channel.display_name) render(null, channel.display_name, channel._links.channel)
+
+    // if it has all the needed data
+    else if (channel.stream) render(channel.stream.profile_banner, channel.stream.display_name, channel.stream.status, channel.stream.url)
   })
+}
+
+const render = (...args) => {
+
+  const [profile_banner, display_name, status, url] = [...args]
+
+  const cardHtml = (image, name, status, link) => `
+  <a class="link" href="${link || '#'}">
+  <div class="card">
+    <div class="img"> <img src="${image || 'http://via.placeholder.com/250/ffffff/000000' }"> </div>
+    <div class="details">
+      <div class="name" title="${name || 'No Name' } is ${status ? 'online' : 'offline'}"> ${name || 'No Name'} </div>
+      ${ status ? '<span class="green-dot"></span>' : '' }
+      <p class="status"> ${status || 'Not Streaming' } </p>
+    </div>
+  </div>
+  </a>`
+
+  document.querySelector('#main').innerHTML += cardHtml(profile_banner, display_name, status, url)
 }

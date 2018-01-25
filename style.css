@@ -18,6 +18,20 @@ body {
   grid-template-columns: 100vw;
 }
 
+/* header */
+header, footer {
+  display: flex;
+  background: #44ee44;
+  color: #112211;
+  justify-content: center;
+  align-items: center;
+}
+
+footer a[href] {
+  color: #112211;
+  padding: 2px;
+}
+
 /* card design */
 .content {
   max-width: 1025px;
@@ -63,9 +77,9 @@ body {
 .card .green-dot {
   position: absolute;
   top: 8px;
-  left: 4px;
-  width: 8px;
-  height: 8px;
-  background: green;
-  border-radius: 50%;
+  right: 4px;
+  padding: 4px;
+  background: #55ee55;
+  color: #ffffff;
+  border-radius: 20px;
 }

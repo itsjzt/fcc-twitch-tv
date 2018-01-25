@@ -29,7 +29,7 @@ const render = (...args) => {
     <div class="img"> <img src="${image || 'http://via.placeholder.com/250/ffffff/000000' }"> </div>
     <div class="details">
       <div class="name" title="${name || 'No Name' } is ${status ? 'online' : 'offline'}"> ${name || 'No Name'} </div>
-      ${ status ? '<span class="green-dot"></span>' : '' }
+      ${ status ? '<span class="green-dot">Online</span>' : '' }
       <p class="status"> ${status || 'Not Streaming' } </p>
     </div>
   </div>
